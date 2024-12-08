@@ -1,5 +1,6 @@
 /*
  * Copyright 2015-2022 Gary R. Van Sickle (grvs@users.sourceforge.net).
+ * Copyright (C) 2022 Free Software Foundation, Inc.
  *
  * This file is part of UniversalCodeGrep.
  *
@@ -118,6 +119,7 @@ enum OPT
 	OPT_WORDREGEX,
 	OPT_COLOR,
 	OPT_NOCOLOR,
+	OPT_NULLSEP,
 	OPT_IGNORE_DIR,
 	OPT_NOIGNORE_DIR,
 	OPT_IGNORE_FILE,
@@ -529,6 +531,13 @@ static const std::array f_raw_options = std::to_array<PreDescriptor>({
 	{ "File presentation:" },
 		{ OPT_COLOR, ENABLE, "", "color,colour", Arg::None, "Render the output with ANSI color codes."},
 		{ OPT_COLOR, DISABLE, "", "nocolor,nocolour", Arg::None, "Render the output without ANSI color codes."},
+                { OPT_NULLSEP, ENABLE, "", "null", Arg::None,
+                  "Output a zero byte (the ASCII NUL character) instead of the character "
+                  "that normally follows a file name.  This option makes the output "
+                  "unambiguous, even in the presence of file names containing unusual "
+                  "characters like newlines.  This option can be used with commands like "
+                  "find -print0, perl -0, sort -z, and xargs -0 to process arbitrary "
+                  "file names, even those that contain newline characters."},
 	{ "File/directory inclusion/exclusion:" },
 		{ OPT_IGNORE_DIR, ENABLE, DISABLE, "", "[no]ignore-dir,[no]ignore-directory", "NAME", Arg::NonEmpty, "[Do not] exclude directories with NAME."},
 		// grep-style --include=glob and --exclude=glob
